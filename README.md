@@ -2,63 +2,37 @@
 
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-nessus/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-nessus/actions)
 
-This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) [Terraform
-module](https://www.terraform.io/docs/modules/index.html) GitHub
-repository started.  This skeleton project contains [licensing
-information](LICENSE), as well as [pre-commit
-hooks](https://pre-commit.com) and
-[GitHub Actions](https://github.com/features/actions) configurations
-appropriate for the major languages that we use.
-
-See [here](https://www.terraform.io/docs/modules/index.html) for more
-details on Terraform modules and the standard module structure.
-
-## Usage ##
-
-```hcl
-module "example" {
-  source = "github.com/cisagov/cool-sharedservices-nessus"
-
-  aws_region            = "us-west-1"
-  aws_availability_zone = "b"
-  subnet_id             = "subnet-0123456789abcdef0"
-
-  tags = {
-    Key1 = "Value1"
-    Key2 = "Value2"
-  }
-}
-```
-
-## Examples ##
-
-* [Deploying into the default VPC](https://github.com/cisagov/cool-sharedservices-nessus/tree/develop/examples/default_vpc)
+This is Terraform for creating a Nessus instance in the COOL Shared Services
+account.  This deployment should be laid down on top of
+[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking),
+after
+[cisagov/cool-sharedservices-freeipa](https://github.com/cisagov/cool-sharedservices-freeipa)
+and
+[cisagov/cool-sharedservices-openvpn](https://github.com/cisagov/cool-sharedservices-openvpn)
+have been applied.
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-------:|:--------:|
-| aws_region | The AWS region to deploy into (e.g. us-east-1) | string | | yes |
-| aws_availability_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.) | string | | yes |
-| subnet_id | The ID of the AWS subnet to deploy into (e.g. subnet-0123456789abcdef0) | string | | yes |
+| aws_region | The AWS region to deploy into (e.g. us-east-1). | string | `us-east-1` | no |
+| create_nessus_instance | A boolean that determines whether or not to create the Nessus instance. | bool | `false` | no |
+| nessus_activation_code | The Nessus activation code (e.g. "AAAA-BBBB-CCCC-DDDD"). | string | `""` | no |
+| ssm_key_nessus_admin_password | The AWS SSM Parameter Store parameter that contains the password of the Nessus admin user (e.g. "/nessus/sharedservices/admin_password"). | string | `/nessus/sharedservices/admin_password` | no |
+| ssm_key_nessus_admin_username | The AWS SSM Parameter Store parameter that contains the username of the Nessus admin user (e.g. "/nessus/sharedservices/admin_username"). | string | `/nessus/sharedservices/admin_username` | no |
 | tags | Tags to apply to all AWS resources created | map(string) | `{}` | no |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
-| id | The EC2 instance ID |
-| arn | The EC2 instance ARN |
-| availability_zone | The AZ where the EC2 instance is deployed |
-| private_ip | The private IP of the EC2 instance |
-| subnet_id | The ID of the subnet where the EC2 instance is deployed |
+| instance_id | The Nessus instance ID. |
+| security_group_id | The ID corresponding to the Nessus security group. |
 
 ## Notes ##
 
 Running `pre-commit` requires running `terraform init` in every directory that
-contains Terraform code. In this repository, these are the main directory and
-every directory under `examples/`.
+contains Terraform code. In this repository, this is only the main directory.
 
 ## Contributing ##
 
