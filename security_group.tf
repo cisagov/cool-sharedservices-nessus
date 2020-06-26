@@ -15,19 +15,6 @@ resource "aws_security_group" "nessus" {
   )
 }
 
-# Allow ingress from OpenVPN server subnet via SSH
-# For: DevOps team SSH access from within the COOL
-resource "aws_security_group_rule" "nessus_ingress_from_vpn_users_via_ssh" {
-  count = var.create_nessus_instance ? 1 : 0
-
-  cidr_blocks       = [local.vpn_server_cidr_block]
-  protocol          = "tcp"
-  security_group_id = aws_security_group.nessus[count.index].id
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-}
-
 # Allow ingress from OpenVPN server subnet via Nessus web GUI
 # For: DevOps team Nessus web GUI access from within the COOL
 resource "aws_security_group_rule" "nessus_ingress_from_vpn_users" {
