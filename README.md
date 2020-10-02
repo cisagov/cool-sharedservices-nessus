@@ -11,23 +11,41 @@ and
 [cisagov/cool-sharedservices-openvpn](https://github.com/cisagov/cool-sharedservices-openvpn)
 have been applied.
 
+## Requirements ##
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.12.0 |
+| aws | ~> 2.0 |
+| template | ~> 2.1 |
+
+## Providers ##
+
+| Name | Version |
+|------|---------|
+| aws | ~> 2.0 |
+| aws.organizationsreadonly | ~> 2.0 |
+| aws.provisionparameterstorereadrole | ~> 2.0 |
+| template | ~> 2.1 |
+| terraform | n/a |
+
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-------:|:--------:|
-| aws_region | The AWS region to deploy into (e.g. us-east-1). | string | `us-east-1` | no |
-| create_nessus_instance | A boolean that determines whether or not to create the Nessus instance. | bool | `false` | no |
-| nessus_activation_code | The Nessus activation code (e.g. "AAAA-BBBB-CCCC-DDDD"). | string | `""` | no |
-| ssm_key_nessus_admin_password | The AWS SSM Parameter Store parameter that contains the password of the Nessus admin user (e.g. "/nessus/sharedservices/admin_password"). | string | `/nessus/sharedservices/admin_password` | no |
-| ssm_key_nessus_admin_username | The AWS SSM Parameter Store parameter that contains the username of the Nessus admin user (e.g. "/nessus/sharedservices/admin_username"). | string | `/nessus/sharedservices/admin_username` | no |
-| tags | Tags to apply to all AWS resources created | map(string) | `{}` | no |
+|------|-------------|------|---------|:--------:|
+| aws_region | The AWS region to deploy into (e.g. us-east-1) | `string` | `us-east-1` | no |
+| create_nessus_instance | A boolean that determines whether or not to create the Nessus instance | `bool` | `false` | no |
+| nessus_activation_code | The Nessus activation code (e.g. "AAAA-BBBB-CCCC-DDDD") | `string` | `` | no |
+| ssm_key_nessus_admin_password | The AWS SSM Parameter Store parameter that contains the password of the Nessus admin user (e.g. "/nessus/sharedservices/admin_password") | `string` | `/nessus/sharedservices/admin_password` | no |
+| ssm_key_nessus_admin_username | The AWS SSM Parameter Store parameter that contains the username of the Nessus admin user (e.g. "/nessus/sharedservices/admin_username") | `string` | `/nessus/sharedservices/admin_username` | no |
+| tags | Tags to apply to all AWS resources created | `map(string)` | `{}` | no |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
-| instance_id | The Nessus instance ID. |
-| security_group_id | The ID corresponding to the Nessus security group. |
+| instance_id | The Nessus instance ID |
+| security_group_id | The ID corresponding to the Nessus security group |
 
 ## Notes ##
 
