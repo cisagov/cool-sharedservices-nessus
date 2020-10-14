@@ -16,16 +16,16 @@ have been applied.
 | Name | Version |
 |------|---------|
 | terraform | ~> 0.12.0 |
-| aws | ~> 2.0 |
+| aws | ~> 3.0 |
 | template | ~> 2.1 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws | ~> 2.0 |
-| aws.organizationsreadonly | ~> 2.0 |
-| aws.provisionparameterstorereadrole | ~> 2.0 |
+| aws | ~> 3.0 |
+| aws.organizationsreadonly | ~> 3.0 |
+| aws.provisionparameterstorereadrole | ~> 3.0 |
 | template | ~> 2.1 |
 | terraform | n/a |
 
