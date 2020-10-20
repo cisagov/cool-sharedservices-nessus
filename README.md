@@ -17,7 +17,7 @@ have been applied.
 |------|---------|
 | terraform | ~> 0.12.0 |
 | aws | ~> 3.0 |
-| template | ~> 2.1 |
+| cloudinit | ~> 2.0 |
 
 ## Providers ##
 
@@ -26,7 +26,7 @@ have been applied.
 | aws | ~> 3.0 |
 | aws.organizationsreadonly | ~> 3.0 |
 | aws.provisionparameterstorereadrole | ~> 3.0 |
-| template | ~> 2.1 |
+| cloudinit | ~> 2.0 |
 | terraform | n/a |
 
 ## Inputs ##
@@ -44,7 +44,7 @@ have been applied.
 
 | Name | Description |
 |------|-------------|
-| instance_id | The Nessus instance ID |
+| instance_id | The Nessus EC2 instance ID |
 | security_group_id | The ID corresponding to the Nessus security group |
 
 ## Notes ##
