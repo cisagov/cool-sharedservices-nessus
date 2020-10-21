@@ -1,6 +1,6 @@
 # cloud-init commands for configuring Nessus instances
 
-data "template_cloudinit_config" "nessus_cloud_init_tasks" {
+data "cloudinit_config" "nessus_cloud_init_tasks" {
   count = var.create_nessus_instance ? 1 : 0
 
   gzip          = true
