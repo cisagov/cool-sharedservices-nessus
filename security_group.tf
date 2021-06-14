@@ -7,12 +7,9 @@ resource "aws_security_group" "nessus" {
 
   vpc_id      = data.aws_vpc.the_vpc.id
   description = "Security group for Nessus server"
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "Nessus"
-    },
-  )
+  tags = {
+    "Name" = "Nessus"
+  }
 }
 
 # Allow ingress from OpenVPN server subnet via Nessus web GUI

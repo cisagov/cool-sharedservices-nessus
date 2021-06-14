@@ -49,6 +49,14 @@ resource "aws_instance" "nessus" {
     aws_security_group.nessus[count.index].id
   ]
 
-  tags        = merge(var.tags, map("Name", "Nessus"))
-  volume_tags = merge(var.tags, map("Name", "Nessus"))
+  tags = { "Name" = "Nessus" }
+  # volume_tags does not yet inherit the default tags from the
+  # provider.  See hashicorp/terraform-provider-aws#19188 for more
+  # details.
+  volume_tags = merge(
+    data.aws_default_tags.default.tags,
+    {
+      "Name" = "Nessus"
+    },
+  )
 }
