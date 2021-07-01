@@ -1,3 +1,6 @@
+# The default tags configured for the default provider
+data "aws_default_tags" "default" {}
+
 locals {
   # Extract the user name of the current caller for use
   # as assume role session names.
