@@ -45,7 +45,11 @@ resource "aws_instance" "nessus" {
   user_data_base64 = data.cloudinit_config.nessus_cloud_init_tasks[count.index].rendered
 
   vpc_security_group_ids = [
-    aws_security_group.nessus[count.index].id
+    aws_security_group.nessus[count.index].id,
+    data.terraform_remote_state.networking.outputs.cloudwatch_agent_endpoint_client_security_group.id,
+    data.terraform_remote_state.networking.outputs.ssm_agent_endpoint_client_security_group.id,
+    data.terraform_remote_state.networking.outputs.ssm_endpoint_client_security_group.id,
+    data.terraform_remote_state.networking.outputs.sts_endpoint_client_security_group.id,
   ]
 
   tags = { "Name" = "Nessus" }
