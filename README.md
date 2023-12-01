@@ -11,21 +11,22 @@ and
 [cisagov/cool-sharedservices-openvpn](https://github.com/cisagov/cool-sharedservices-openvpn)
 have been applied.
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements ##
 
 | Name | Version |
 |------|---------|
 | terraform | ~> 1.0 |
-| aws | ~> 3.38 |
+| aws | ~> 4.9 |
 | cloudinit | ~> 2.0 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.38 |
-| aws.organizationsreadonly | ~> 3.38 |
-| aws.provisionparameterstorereadrole | ~> 3.38 |
+| aws | ~> 4.9 |
+| aws.organizationsreadonly | ~> 4.9 |
+| aws.provisionparameterstorereadrole | ~> 4.9 |
 | cloudinit | ~> 2.0 |
 | terraform | n/a |
 
@@ -89,6 +90,7 @@ No modules.
 |------|-------------|
 | instance\_id | The Nessus EC2 instance ID. |
 | security\_group\_id | The ID corresponding to the Nessus security group. |
+<!-- END_TF_DOCS -->
 
 ## Notes ##
 
