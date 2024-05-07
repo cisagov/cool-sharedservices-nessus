@@ -12,32 +12,32 @@ resource "aws_iam_instance_profile" "nessus" {
 resource "aws_iam_role" "nessus_instance_role" {
   count = var.create_nessus_instance ? 1 : 0
 
-  name               = "nessus_instance_role"
   assume_role_policy = data.aws_iam_policy_document.nessus_assume_role_policy_doc.json
+  name               = "nessus_instance_role"
 }
 
 resource "aws_iam_role_policy" "nessus_assume_delegated_role_policy" {
   count = var.create_nessus_instance ? 1 : 0
 
   name   = "nessus_assume_delegated_role_policy"
-  role   = aws_iam_role.nessus_instance_role[count.index].id
   policy = data.aws_iam_policy_document.nessus_assume_delegated_role_policy_doc[count.index].json
+  role   = aws_iam_role.nessus_instance_role[count.index].id
 }
 
 # Attach the CloudWatch Agent policy to this role as well
 resource "aws_iam_role_policy_attachment" "cloudwatch_agent_policy_attachment_nessus" {
   count = var.create_nessus_instance ? 1 : 0
 
-  role       = aws_iam_role.nessus_instance_role[count.index].id
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+  role       = aws_iam_role.nessus_instance_role[count.index].id
 }
 
 # Attach the SSM Agent policy to this role as well
 resource "aws_iam_role_policy_attachment" "ssm_agent_policy_attachment_nessus" {
   count = var.create_nessus_instance ? 1 : 0
 
-  role       = aws_iam_role.nessus_instance_role[count.index].id
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  role       = aws_iam_role.nessus_instance_role[count.index].id
 }
 
 ################################
@@ -47,11 +47,12 @@ resource "aws_iam_role_policy_attachment" "ssm_agent_policy_attachment_nessus" {
 data "aws_iam_policy_document" "nessus_assume_role_policy_doc" {
   statement {
     actions = ["sts:AssumeRole"]
+    effect  = "Allow"
+
     principals {
-      type        = "Service"
       identifiers = ["ec2.amazonaws.com"]
+      type        = "Service"
     }
-    effect = "Allow"
   }
 }
 
@@ -62,9 +63,9 @@ data "aws_iam_policy_document" "nessus_assume_delegated_role_policy_doc" {
 
   statement {
     actions = ["sts:AssumeRole"]
+    effect  = "Allow"
     resources = [
       aws_iam_role.nessus_parameterstorereadonly_role[count.index].arn
     ]
-    effect = "Allow"
   }
 }

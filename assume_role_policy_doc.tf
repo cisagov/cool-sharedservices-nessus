@@ -12,10 +12,10 @@ data "aws_iam_policy_document" "nessus_assume_role_doc" {
     ]
 
     principals {
-      type = "AWS"
       identifiers = [
         aws_iam_role.nessus_instance_role[count.index].arn
       ]
+      type = "AWS"
     }
   }
 }

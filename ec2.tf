@@ -22,8 +22,8 @@ data "aws_ami" "nessus" {
     values = ["ebs"]
   }
 
-  owners      = [local.images_account_id]
   most_recent = true
+  owners      = [local.images_account_id]
 }
 
 # The Nessus EC2 instance
@@ -36,23 +36,8 @@ resource "aws_instance" "nessus" {
   iam_instance_profile        = aws_iam_instance_profile.nessus[count.index].name
   instance_type               = "m5.large"
   subnet_id                   = local.nessus_subnet.id
-
-  root_block_device {
-    volume_size = 128
-    volume_type = "gp3"
-  }
-
-  user_data_base64 = data.cloudinit_config.nessus_cloud_init_tasks[count.index].rendered
-
-  vpc_security_group_ids = [
-    aws_security_group.nessus[count.index].id,
-    data.terraform_remote_state.networking.outputs.cloudwatch_agent_endpoint_client_security_group.id,
-    data.terraform_remote_state.networking.outputs.ssm_agent_endpoint_client_security_group.id,
-    data.terraform_remote_state.networking.outputs.ssm_endpoint_client_security_group.id,
-    data.terraform_remote_state.networking.outputs.sts_endpoint_client_security_group.id,
-  ]
-
-  tags = { "Name" = "Nessus" }
+  tags                        = { "Name" = "Nessus" }
+  user_data_base64            = data.cloudinit_config.nessus_cloud_init_tasks[count.index].rendered
   # volume_tags does not yet inherit the default tags from the
   # provider.  See hashicorp/terraform-provider-aws#19188 for more
   # details.
@@ -62,4 +47,16 @@ resource "aws_instance" "nessus" {
       "Name" = "Nessus"
     },
   )
+  vpc_security_group_ids = [
+    aws_security_group.nessus[count.index].id,
+    data.terraform_remote_state.networking.outputs.cloudwatch_agent_endpoint_client_security_group.id,
+    data.terraform_remote_state.networking.outputs.ssm_agent_endpoint_client_security_group.id,
+    data.terraform_remote_state.networking.outputs.ssm_endpoint_client_security_group.id,
+    data.terraform_remote_state.networking.outputs.sts_endpoint_client_security_group.id,
+  ]
+
+  root_block_device {
+    volume_size = 128
+    volume_type = "gp3"
+  }
 }
