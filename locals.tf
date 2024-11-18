@@ -45,7 +45,7 @@ locals {
   # sharedservices_networking remote state
   #
   # Swiped from:
-  # https://github.com/cisagov/cool-sharedservices-openvpn/blob/develop/openvpn.tf#L30-L43
+  # https://github.com/cisagov/cool-sharedservices-openvpn/blob/c3ad7d74a78be903b137a1e6a095d45a0bfe7ea6/openvpn.tf#L6-L19
   #
   # OpenVPN currently only uses a single public subnet, so grab the
   # CIDR of the one with the smallest third octet.
